@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+    # Service - sales-db-server
+    sales-db-server:
+        container_name: sales-db-server
+        image: postgres:12.4
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=Test123$
+            - POSTGRES_DB=sales
+
+# Service - sales-10-service
+    sales-10-service:
+        container_name: sales-10-service
+        image: img/sales-10-service:1.0.0
+        restart: always
+        ports:
+            - "8082:8082"
+        depends_on:
+            - sales-db-server
+
